@@ -1,12 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Wallet } from "lucide-react"
 import { Skeleton } from "./ui/skeleton"
+import { useProfile } from "@/hooks/useProfile"
 
 interface BalanceCardProps {
   balance: number
 }
 
 export function BalanceCard({ balance }: BalanceCardProps) {
+  const { isLoading } = useProfile()
+
   return (
     <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -16,7 +19,7 @@ export function BalanceCard({ balance }: BalanceCardProps) {
       <CardContent>
 
         {
-          !balance ? (
+          isLoading ? (
             <Skeleton className="h-10 w-full" />
           ) : (
             <div className="text-3xl font-bold">R$ {balance.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</div>
